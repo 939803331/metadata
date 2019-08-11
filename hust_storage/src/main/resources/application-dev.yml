@@ -1,0 +1,30 @@
+spring:
+    # MySQL配置
+    datasource:
+        name: default
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:log4jdbc:mysql://rm-bp1i7k76h47r1jhxxeo.mysql.rds.aliyuncs.com/hust_storage?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: Metadatafr370
+        driver-class-name: net.sf.log4jdbc.DriverSpy
+        hikari:
+            auto-commit: true
+            connection-test-query: select 1
+            connection-timeout: 60000
+            maximum-pool-size: 10
+
+# 日志
+logging:
+    # file: logs/mgather.log
+    level:
+        cn.net.metadata.mgather: debug
+        io.swagger.models.parameters.AbstractSerializableParameter: error
+        springfox: warn
+        jdbc:
+            connection: error # 记录连接打开、关闭等信息，有利于调试数据库连接相关问题
+            sqlonly: error # 仅记录 SQL
+            sqltiming: info # 记录 SQL 以及耗时信息
+            resultset: error # 会产生更多的记录信息，因为记录了 ResultSet 的信息
+            audit: error # 记录除了 ResultSet 之外的所有 JDBC 调用信息，会产生大量的记录，有利于调试跟踪具体的 JDBC 问题
+
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <title>Title</title>
+    <style>
+        #tableList {
+            width: 100%;
+            border-top: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+        #tableList td {
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            padding-left: 8px;
+            font-size: 15px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+<h2>麦达基础开发框架代码生成器&nbsp;&nbsp;&nbsp;(MetaData&nbsp;Code&nbsp;Generator)</h2>
+<table id="tableList" cellpadding="0" cellspacing="0">
+    <thead>
+    <tr>
+        <td>表名</td>
+        <td>表备注说明</td>
+        <td>状态</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</body>
+
+<script>
+    $(function () {
+        drawTable()
+    });
+
+    function drawTable() {
+        $.get('/generator/tables', {}, function (data) {
+            var html = ''
+            for (var i = 0; i < data.data.length; i++) {
+                html += "<tr><td>" + data.data[i].tableName + "</td><td>" + data.data[i].tableComment + "</td><td>&nbsp;</td><td><input type=\"button\" value=\"生成代码\" onclick=\"genCode('" + data.data[i].tableName + "')\"/></td></tr>";
+
+            }
+            $("#tableList tbody").html(html)
+        })
+    }
+
+    function genCode(tableName) {
+        $.get('/generator/' + tableName, {}, function (data) {
+            console.log(data)
+            alert(tableName + '代码生成成功！');
+            drawTable()
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,87 @@
+spring:
+    jackson:
+        serialization:
+            FAIL_ON_EMPTY_BEANS: false
+    jpa:
+        open-in-view: true
+        generate-ddl: true
+        show_sql: true
+        hibernate:
+            ddl-auto: update
+            naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        properties:
+            hibernate:
+                type: info
+                show_sql: false
+                use_sql_comments: true
+                format_sql: false
+                dialect: org.hibernate.dialect.MySQL57Dialect
+    # 重启规则
+    devtools:
+        restart:
+            enabled: false
+            additional-exclude: /assets/**,assets/**
+    servlet:
+        # 上传你文件大小限制
+        multipart:
+            max-file-size: 200MB
+            max-request-size: 200MB
+    # 设置静态文件路径，不知道有没有卵用
+    resources.static-locations: classpath:static/,file:static/
+    # 激活对应的配置文件（可以使用自己的命名，类似：application-xiaopo.yaml）
+    profiles.active: dev
+
+# jwt securiry 权限校验
+jwt:
+    secret: "metadata_2017_irs"
+    # token 的有效时间（单位秒）
+    exp: 18000
+    #该JWT所面向的用户
+    sub: "*"
+    #该JWT的签发者
+    iss: "www.metadata.net.cn"
+    #接收该JWT的一方
+    aud: "*"
+    # rememberMe key
+    rememberMeKey: 123
+
+file:
+    uploadPath: "/upload"
+
+# 权限过滤配置(不拦截地址)
+filter-config:
+  # web不拦截地址
+  sysAntMatchers:
+    - /favicon.ico
+    - /gen.html
+    - /swagger-ui.html
+    - /swagger-resources
+    - /v2/api-docs
+    - /swagger-resources/**
+    - /swagger-ui.html/**
+    - /v2/api-docs/**
+    - /webjars/**
+    - "*.js"
+    - /doc.html
+    - /wechat/**
+    - /not-intercept/**
+  # 共公权限地址()
+  antMatchers:
+#   - /recommend/**
+#   - /article/**
+#   - /upload/img
+#   - /category/**
+#   - /service/serviceType
+
+server:
+  port: 8088
+  compression:
+    enabled: true
+springfox:
+  swagger:
+    enable: true
+
+project:
+  group: cn.net.metadata
+  name: base
+  databaseName: hust_storage
