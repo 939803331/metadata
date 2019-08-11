@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/security?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.ph.securitytest.entity
+
+
+# 权限过滤配置(不拦截地址)
+filter-config:
+  # web不拦截地址
+  sysAntMatchers:
+    - /favicon.ico
+    - /gen.html
+    - /swagger-ui.html
+    - /swagger-resources
+    - /v2/api-docs
+    - /swagger-resources/**
+    - /swagger-ui.html/**
+    - /v2/api-docs/**
+    - /webjars/**
+    - "*.js"
+    - /doc.html
+    - /wechat/**
+    - /not-intercept/**
+  # 共公权限地址()
+  antMatchers:
+#   - /recommend/**
+#   - /article/**
+#   - /upload/img
+#   - /category/**
+#   - /service/serviceType
+
+springfox:
+  swagger:
+    enable: true

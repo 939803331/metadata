@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.ph.securitytest.mapper.PermissionMapper">
+    <select id="findByRoleId" parameterType="java.lang.Integer" resultType="com.ph.securitytest.entity.Permission">
+        select
+            sp.id,
+            sp.name,
+            sp.authority,
+            sp.url
+        from
+            sys_permission sp
+            left join sys_role_permission srp on sp.id = srp.permission_id
+        where
+            srp.role_id = #{roleId}
+    </select>
+</mapper>
